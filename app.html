@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
 </head>
 <body>
 
@@ -141,5 +143,6 @@
 (function(){function u(){var s=location.pathname.split('/').filter(Boolean),n=Math.max(0,s.length-2),p='';while(n--){p+='../';}var c=document.createElement('script');c.src=p+'chatbot-config.js';c.onload=function(){var w=document.createElement('script');w.src=p+'chatbot.js';document.body.appendChild(w);};document.body.appendChild(c);}u();})();
 </script>
 
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js");}</script>
 </body>
 </html>

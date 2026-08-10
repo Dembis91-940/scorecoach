@@ -1,0 +1,12 @@
+{
+  "name": "ScoreCoach — Suivi de progrès professionnel",
+  "short_name": "ScoreCoach",
+  "description": "Digitalisez vos grilles d'évaluation : suivi des progrès, export PDF pro.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><text x='50' y='66' font-size='50' text-anchor='middle' fill='white'>📊</text></svg>", "sizes": "192x192", "type": "image/svg+xml" }
+  ]
+}
