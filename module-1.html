@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 — Comptes-rendus automatisés | Formation IA ScoreCoach</title>
+<meta name="description" content="Module 1 de la formation IA ScoreCoach : transformer les notes d'évaluation en compte-rendu professionnel avec un agent IA. Prompt système prêt à copier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Score<span>Coach</span></a>
+    <nav class="nav-links">
+      <a href="formation.html">← Formation</a>
+      <a href="app.html">Application</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a class="btn accent" href="module-2.html">Module suivant →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="lesson" style="padding-top:72px">
+  <div class="wrap narrow">
+    <span class="kicker">Module 1 / 3 · ~20 min</span>
+    <h1>Comptes-rendus automatisés</h1>
+    <p class="meta">Objectif : produire un compte-rendu de séance professionnel en 30 secondes, à partir des notes que vous saisissez déjà dans ScoreCoach.</p>
+
+    <h2>Pourquoi c'est rentable</h2>
+    <p>Un compte-rendu manuscrit ou tapé à la main vous coûte <b>15 à 25 minutes par séance</b>. À 8 séances par semaine, c'est <b>2 à 3 heures</b> — soit presque une demi-journée de travail non facturée. Un compte-rendu généré par IA, relu en 60 secondes, transforme cette corvée en avantage commercial : vos clients reçoivent un document structuré qui prouve votre sérieux.</p>
+
+    <div class="callout"><b>Le principe :</b> vos notes ScoreCoach (critères, notes 1-5, commentaires) sont le « fait brut ». L'agent IA les transforme en récit professionnel — sans rien inventer : il ne fait que mettre en forme ce que vous avez noté.</div>
+
+    <h2>Votre workflow en 3 étapes</h2>
+    <ol>
+      <li><b>Saisissez</b> la séance dans ScoreCoach (2 min, vous le faites déjà).</li>
+      <li><b>Copiez</b> les notes (ou exportez le récapitulatif) et collez-les dans ChatGPT / Claude avec le prompt ci-dessous.</li>
+      <li><b>Relisez</b> 60 secondes, corrigez une nuance, collez le texte dans le PDF ScoreCoach ou votre email au client.</li>
+    </ol>
+
+    <h2>L'agent « Compte-rendu de séance » — prompt système</h2>
+    <p>Copiez ce prompt dans votre outil IA préféré, puis collez les notes de la séance à la suite.</p>
+    <div class="prompt-block"><button type="button" class="copy-btn">Copier</button>Tu es l'assistant administratif d'un professionnel du sport et de la santé (coach sportif, kinésithérapeute ou préparateur physique). Ton rôle : transformer des notes d'évaluation brutes en compte-rendu de séance professionnel, prêt à remettre au client ou au prescripteur.
+
+RÈGLES STRICTES :
+1. N'invente JAMAIS un chiffre, une note ou un commentaire absent des notes fournies. Si une information manque, ne la comble pas : omets-la ou écris « non renseigné ».
+2. Structure du compte-rendu :
+   - En-tête : nom du client, date, type de séance, praticien
+   - Bilan de la séance : 3-5 lignes objectives à partir des critères notés
+   - Points forts (notes ≥ 4) : liste à puces
+   - Points de vigilance (notes ≤ 2) : liste à puces avec une recommandation simple
+   - Évolution : si une note de séance précédente est fournie, compare et signale la tendance (+/- en points)
+   - Objectifs pour la prochaine séance : 2-3 objectifs concrets
+   - Conclusion : 2 phrases maximum, ton positif et professionnel
+3. Ton : professionnel, précis, jamais alarmiste, jamais commercial. Écris « le patient / le client » selon le contexte.
+4. Format : texte structuré avec titres en MAJUSCULES, prêt à coller dans un email ou un document. Longueur : 250-400 mots maximum.
+5. Langue : français.
+
+Les notes d'évaluation sont fournies au format JSON (critère, note /5, commentaire éventuel). Réponds directement avec le compte-rendu, sans préambule.</div>
+
+    <h2>Exemple d'entrée → sortie</h2>
+    <p><b>Entrée (collée après le prompt) :</b></p>
+    <div class="prompt-block" style="font-size:12.5px">{"client":"Julie Martin","date":"2026-08-08","grille":"Coach sportif","notes":[{"critere":"Technique d'exécution","note":4,"commentaire":"Squat propre, genoux stables"},{"critere":"Placement & posture","note":3,"commentaire":"Gainage encore un peu mou en fin de série"},{"critere":"Intensité & effort","note":5,"commentaire":"Record sur le développé : 60 kg x 8"},{"critere":"Compréhension des consignes","note":4},{"critere":"Récupération","note":3,"commentaire":"A bu, mais repos trop court entre les séries 6 et 7"}],"seance_precedente":{"total":16,"max":25}}</div>
+    <p><b>Ce que l'agent produit :</b> un compte-rendu avec bilan, points forts (technique, intensité), points de vigilance (gainage, récupération), évolution (+2 points vs séance précédente) et 2-3 objectifs pour la séance suivante.</p>
+
+    <h2>3 réflexes pour un résultat fiable</h2>
+    <ul>
+      <li><b>Donnez les notes brutes, pas votre avis :</b> l'agent met en forme, il ne décide pas à votre place.</li>
+      <li><b>Ajoutez le contexte :</b> « reprise après blessure », « objectif : course 10 km » — une ligne suffit pour orienter le ton.</li>
+      <li><b>Relisez toujours :</b> l'IA peut arrondir une nuance. 60 secondes de relecture protègent votre crédibilité clinique.</li>
+    </ul>
+
+    <div class="cta-box">
+      <h3>Module terminé ✅</h3>
+      <p>Vous savez générer un compte-rendu pro en 30 secondes. Passons au suivi clients : détecter les plateaux et relancer au bon moment.</p>
+      <a class="btn accent" href="module-2.html">Module 2 — Suivi clients →</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink)">
+  <div class="wrap foot">
+    <div>© 2026 ScoreCoach — <a href="formation.html">Formation</a> · <a href="templates-agents/01-compte-rendu-seance.md">Prompt en .md</a></div>
+    <div>Module 1/3 — Comptes-rendus automatisés</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

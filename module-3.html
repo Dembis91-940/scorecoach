@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 — Facturation & gestion | Formation IA ScoreCoach</title>
+<meta name="description" content="Module 3 de la formation IA ScoreCoach : générer factures et relances d'impayés depuis vos séances, sans tableur. Prompt système prêt à copier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Score<span>Coach</span></a>
+    <nav class="nav-links">
+      <a href="formation.html">← Formation</a>
+      <a href="app.html">Application</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a class="btn accent" href="formation.html">Terminer →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="lesson" style="padding-top:72px">
+  <div class="wrap narrow">
+    <span class="kicker">Module 3 / 3 · ~20 min</span>
+    <h1>Facturation & gestion</h1>
+    <p class="meta">Objectif : transformer vos séances enregistrées en factures et relances d'impayés — sans tableur, sans logiciel de compta coûteux.</p>
+
+    <h2>Le problème que tout le monde connaît</h2>
+    <p>Les séances sont faites, les clients sont contents… et la facture n'est pas partie. Au bout de 3 semaines, relancer devient gênant, et l'impayé devient une perte sèche. Pour un indépendant, <b>1 impayé de 40 € par mois = 480 €/an</b> qui s'évaporent. La facturation n'est pas une corvée administrative : c'est votre trésorerie.</p>
+
+    <div class="callout"><b>Le principe :</b> vos séances ScoreCoach sont la source de vérité (qui, quoi, quand, combien de séances). L'agent IA transforme cette liste en facture propre + relances calibrées, avec le ton juste — ferme sans être froid.</div>
+
+    <h2>Votre workflow de fin de semaine (10 minutes)</h2>
+    <ol>
+      <li><b>Listez</b> les séances de la semaine depuis votre historique ScoreCoach.</li>
+      <li><b>Collez</b> la liste dans l'agent « Facturation » avec le prompt ci-dessous.</li>
+      <li><b>Reprenez</b> la facture générée (vérifiez les montants — c'est vous le responsable légal) et copiez-la dans votre outil d'envoi.</li>
+    </ol>
+
+    <h2>L'agent « Facturation & impayés » — prompt système</h2>
+    <div class="prompt-block"><button type="button" class="copy-btn">Copier</button>Tu es l'assistant de facturation d'un indépendant du sport et de la santé (coach sportif, kiné, préparateur physique). Tu reçois la liste des séances de la semaine (client, date, type de séance, tarif unitaire) et la liste des clients avec un solde impayé éventuel.
+
+TÂCHE 1 — GÉNÈRE LES FACTURES :
+Pour chaque client ayant eu des séances, produis une facture au format :
+   FACTURE N° [AAAA-MM-NNN]
+   Émetteur : [nom du praticien — à remplacer]
+   Client : [nom]
+   Date : [date du jour]
+   --------------------------------------------------
+   [date] — [type de séance] ................ [tarif] €
+   [date] — [type de séance] ................ [tarif] €
+   --------------------------------------------------
+   TOTAL TTC ................................ [total] €
+   Paiement : virement / CB / espèces (à préciser)
+   Échéance : sous 15 jours
+Sois rigoureux sur les montants : additionne exactement les tarifs fournis, ne les modifie JAMAIS.
+
+TÂCHE 2 — GÉNÈRE LES RELANCES :
+Pour chaque solde impayé, classe par ancienneté :
+   - < 15 jours : aucun message (trop tôt, la facture est partie)
+   - 15-30 jours : relance aimable (1 message, 3-4 phrases, rappel du service rendu, proposition de facilité)
+   - 30-60 jours : relance ferme mais courtoise (rappel de l'échéance, montant exact, mention « je reste disponible pour un échéancier »)
+   - > 60 jours : dernier recours (mention d'une procédure, ton neutre, sans menace agressive)
+Chaque relance : 3-4 phrases max, ton humain, aucun jugement moral, prête à envoyer.
+
+RÈGLES : ne calcule jamais un tarif que tu n'as pas reçu ; si une info manque, écris « [à compléter] » ; n'invente pas de numéro de TVA ; langue française.</div>
+
+    <h2>Exemple d'entrée → sortie</h2>
+    <p><b>Entrée :</b> <span style="font-family:ui-monospace,monospace;font-size:13px">Séances : Julie M. — 3 séances coaching à 40 € · Karim — 2 séances à 40 €. Impayés : Karim, facture du 20/07 (80 €), 25 jours.</span></p>
+    <p><b>Ce que l'agent produit :</b> la facture de Julie (120 €), la facture de Karim (80 €), et une relance aimable pour Karim (« Salut Karim, je me permets de te rappeler la facture du 20/07 (80 €)… si besoin on peut échelonner »).</p>
+
+    <h2>Les 3 règles d'or</h2>
+    <ul>
+      <li><b>Vérifiez les totaux :</b> l'IA additionne bien, mais la responsabilité de la facture est la vôtre. 30 secondes de contrôle.</li>
+      <li><b>Relancez tôt :</b> à 15 jours, une relance aimable récupère 80 % des impayés. Attendre 60 jours = relation abîmée + argent perdu.</li>
+      <li><b>Séparez facturation et relation :</b> la relance est un processus, pas une émotion. Un ton neutre et régulier protège la relation mieux qu'un silence gêné.</li>
+    </ul>
+
+    <div class="cta-box">
+      <h3>Formation terminée 🎉</h3>
+      <p>Comptes-rendus, suivi clients, facturation : vous automatisez ~5 h de travail invisible par semaine. Appliquez les 3 agents dès cette semaine.</p>
+      <a class="btn accent" href="app.html" style="margin-right:10px">Ouvrir l'application</a>
+      <a class="btn ghost" href="tarifs.html">Passer Pro</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink)">
+  <div class="wrap foot">
+    <div>© 2026 ScoreCoach — <a href="formation.html">Formation</a> · <a href="templates-agents/03-facturation.md">Prompt en .md</a></div>
+    <div>Module 3/3 — Facturation & gestion</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarifs ScoreCoach — Dès 19 €/mois, sans engagement</title>
+<meta name="description" content="Découverte 19 €/mois, Pro 39 €/mois (27 € en lancement), Clinique 79 €/mois (55 € en lancement). Essai gratuit 14 jours, annulation en 1 clic, sans carte bancaire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Score<span>Coach</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="app.html">Application</a>
+      <a href="formation.html">Formation IA</a>
+      <a href="blog/grille-evaluation-coach-sportif.html">Blog</a>
+      <a class="btn accent" href="app.html">Essayer gratuitement</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pricing" style="padding-top:72px">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center">Tarifs</span>
+    <h2>Choisissez votre formule.</h2>
+    <p class="lead">Tarifs de lancement −30 % sur Pro et Clinique. Toutes les formules incluent 14 jours d'essai gratuit. <b>Annulation en 1 clic, sans email ni appel.</b></p>
+
+    <div class="sub-grid" style="margin-top:8px">
+      <div>
+        <div class="plans" style="grid-template-columns:1fr">
+          <div class="plan featured" style="max-width:520px;margin:0 auto;width:100%">
+            <div class="tag launch">🔥 Offre de lancement −30 %</div>
+            <h3>Pro — la formule recommandée</h3>
+            <div class="price"><s>39 €</s> 27 €<small>/mois</small></div>
+            <div class="per">Soit <b>324 €/an</b> en facturation annuelle (20 €/mois) — l'équivalent de <b>3 séances clients</b>.</div>
+            <ul>
+              <li>3 grilles métier : coach sportif, kiné, fitness</li>
+              <li>Évaluations & clients illimités</li>
+              <li>Suivi des progrès avec courbes d'évolution</li>
+              <li>Export PDF professionnel illimité</li>
+              <li>Micro-formation IA intégrée : 3 modules + templates d'agents prêts à copier</li>
+              <li>Support prioritaire par email (réponse &lt; 24 h)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pricing-foot">Découverte 19 €/mois · Clinique 79 €/mois (55 € en lancement) — <a href="#simulation" style="color:var(--accent);font-weight:600">simulez ci-contre ↓</a></div>
+      </div>
+
+      <!-- ============ SIMULATION ABONNEMENT ============ -->
+      <div class="checkout-card" id="checkout">
+        <span class="demo-badge">MODE DÉMO — aucune carte prélevée, Stripe à connecter pour la mise en production</span>
+        <h2 id="simulation">💳 Simuler mon abonnement</h2>
+
+        <div class="billing-toggle">
+          <button type="button" class="bill-btn on" data-bill="monthly">Mensuel</button>
+          <button type="button" class="bill-btn" data-bill="annual">Annuel <span class="save">−20 %</span></button>
+        </div>
+
+        <div class="field">
+          <label>Formule</label>
+          <div class="tpl-pick" id="plan-pick" style="grid-template-columns:1fr"></div>
+        </div>
+
+        <form id="sub-form">
+          <div class="field">
+            <label for="sub-email">Email de facturation</label>
+            <input type="email" id="sub-email" placeholder="vous@cabinet.fr" required>
+          </div>
+
+          <div class="checkout-row"><span>Formule</span><b id="chk-plan">Pro — 3 grilles + formation IA</b></div>
+          <div class="checkout-row"><span>Prix unitaire</span><b id="chk-price">27 €</b></div>
+          <div class="checkout-row"><span>Facturation</span><b id="chk-billing">Mensuel, sans engagement</b></div>
+          <div class="checkout-row total"><span>Total</span><b id="chk-total">27 € /mois</b></div>
+          <div class="checkout-row"><span>Première facture</span><b id="chk-first">Première facture : 27 €</b></div>
+
+          <div class="stripe-placeholder">
+            <b>🔒 Paiement sécurisé — placeholder Stripe</b><br>
+            En production : carte bancaire via <b>Stripe Checkout</b> (CB, Apple Pay, Google Pay), prélèvement automatique mensuel, facture PDF envoyée par email.<br>
+            <span style="color:var(--muted)">Champs carte désactivés en mode démo — aucune donnée bancaire n'est demandée ni stockée.</span>
+          </div>
+
+          <button type="submit" class="btn accent" style="width:100%">Valider mon abonnement (démo) →</button>
+          <p class="form-note">14 jours d'essai gratuit inclus. Sans engagement : <b>annulation en 1 clic</b> depuis votre espace, vous gardez l'accès jusqu'à la fin de la période payée.</p>
+        </form>
+      </div>
+
+      <!-- ============ CONFIRMATION ============ -->
+      <div class="checkout-card" id="confirmation" style="display:none">
+        <span class="demo-badge">MODE DÉMO — abonnement simulé, non facturé</span>
+        <h2>✓ Abonnement activé (démo)</h2>
+        <div class="checkout-row"><span>Formule</span><b id="cf-plan">Pro</b></div>
+        <div class="checkout-row"><span>Tarif</span><b id="cf-price">27 €/mois</b></div>
+        <div class="checkout-row"><span>Email</span><b id="cf-mail">—</b></div>
+        <p style="font-size:14px;color:var(--muted);margin:16px 0">
+          En production, vous recevriez un email de confirmation + votre facture. L'accès à l'application se débloque immédiatement.
+        </p>
+        <a class="btn accent" style="width:100%;margin-bottom:10px" href="app.html">Ouvrir l'application →</a>
+        <button type="button" class="btn ghost" id="btn-cancel" style="width:100%">Résilier (démo — 1 clic, comme en vrai)</button>
+        <p class="form-note" style="text-align:center">Transparence : pas de période d'engagement, pas de frais cachés, vos données exportables à tout moment.</p>
+      </div>
+    </div>
+
+    <div class="transparence" style="max-width:520px;margin:34px auto 0">
+      <div class="ico">🛡️</div>
+      <div>
+        <b>L'argument de transparence :</b> annulation en 1 clic depuis votre espace — pas d'email à écrire, pas d'appel de rétention, pas de piège. Si ScoreCoach ne vous fait pas gagner de temps, vous partez en 10 secondes et vous exportez vos données avant de claquer la porte.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink)">
+  <div class="wrap foot">
+    <div>© 2026 ScoreCoach — <a href="index.html">Accueil</a> · <a href="app.html">Application</a> · <a href="formation.html">Formation IA</a></div>
+    <div>Paiement : Stripe (placeholder en démo) · Hébergement : statique</div>
+  </div>
+</footer>
+
+<script src="assets/js/tarifs.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Suivi clients intelligent | Formation IA ScoreCoach</title>
+<meta name="description" content="Module 2 de la formation IA ScoreCoach : détecter les plateaux et régressions dans les courbes de progrès, générer des relances personnalisées. Prompt système prêt à copier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Score<span>Coach</span></a>
+    <nav class="nav-links">
+      <a href="formation.html">← Formation</a>
+      <a href="app.html">Application</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a class="btn accent" href="module-3.html">Module suivant →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="lesson" style="padding-top:72px">
+  <div class="wrap narrow">
+    <span class="kicker">Module 2 / 3 · ~20 min</span>
+    <h1>Suivi clients intelligent</h1>
+    <p class="meta">Objectif : transformer vos courbes d'évolution en décisions — détecter le plateau, relancer au bon moment, préparer la séance suivante.</p>
+
+    <h2>Le coût caché du client qui stagne</h2>
+    <p>Un client qui ne voit pas ses progrès arrête au bout de <b>6 à 8 semaines</b> — souvent sans rien dire. Il ne vient plus, il ne paie plus, et vous ne savez pas pourquoi. Vos courbes ScoreCoach contiennent la réponse : le plateau. Les séries de scores plats sur 3 séances ou plus sont le signal d'alerte n°1.</p>
+
+    <div class="callout"><b>Le principe :</b> vous ne pouvez pas relire 20 courbes chaque semaine. L'agent IA, lui, peut. Donnez-lui les séries de scores, il classe vos clients en trois piles : <b>progression</b>, <b>plateau</b>, <b>régression</b> — et il vous prépare le message adapté pour chacun.</div>
+
+    <h2>Votre workflow hebdomadaire (15 minutes)</h2>
+    <ol>
+      <li><b>Exportez</b> les scores récents de vos clients (depuis le tableau de bord ScoreCoach).</li>
+      <li><b>Collez-les</b> dans l'agent « Suivi & relance » avec le prompt ci-dessous.</li>
+      <li><b>Validez</b> les relances proposées : vous signez, l'agent a fait le gros du travail.</li>
+    </ol>
+
+    <h2>L'agent « Suivi & relance client » — prompt système</h2>
+    <div class="prompt-block"><button type="button" class="copy-btn">Copier</button>Tu es l'assistant de suivi client d'un professionnel du sport et de la santé (coach, kiné ou préparateur physique). Tu reçois les séries de scores d'évaluation de plusieurs clients (dates + pourcentages + notes par critère). Ton rôle : analyser, classer et préparer des messages de suivi.
+
+ANALYSE — pour chaque client, classe-le :
+- PROGRESSION : tendance globale en hausse (≥ +5 points entre la première et la dernière séance)
+- PLATEAU : scores stables (variation ≤ 3 points) sur 3 séances consécutives ou plus
+- RÉGRESSION : tendance en baisse (≤ -5 points) ou 2 séances consécutives en baisse
+- NOUVEAU : moins de 2 séances
+
+POUR CHAQUE CLIENT, PRODUIS :
+1. Un diagnostic d'une ligne (ex. « Plateau depuis 3 séances, surtout sur la mobilité »).
+2. Un message de suivi prêt à envoyer (SMS, WhatsApp ou email) selon la catégorie :
+   - PROGRESSION → félicitations précises (cite le critère qui progresse) + prochaine étape motivante
+   - PLATEAU → recadrage positif : nomme le plateau sans dramatiser, propose UNE variable à changer (charge, volume, récupération, exercice), propose une mini-évaluation ciblée
+   - RÉGRESSION → message bienveillant : question ouverte sur fatigue/sommeil/stress, propose d'ajuster le plan, JAMAIS de reproche
+   - NOUVEAU → message de bienvenue + rappel du prochain rendez-vous
+3. Une suggestion de séance suivante : 1-2 exercices ou ajustements concrets.
+
+RÈGLES :
+- Les messages font 3-4 phrases max, ton humain et direct, tutoiement si le client est tutoyé (indique-le), jamais de jargon.
+- N'invente aucune donnée : si un critère n'est pas dans les données, n'en parle pas.
+- Termine par un tableau récapitulatif : Client | Catégorie | Action proposée.
+- Langue : français.</div>
+
+    <h2>Exemple d'entrée → sortie</h2>
+    <p><b>Entrée :</b> <span style="font-family:ui-monospace,monospace;font-size:13px">Julie M. : 62%, 65%, 66%, 64% (plateau possible) — critère faible : mobilité. Karim : 70%, 78%, 85% (progression). Samia : 58%, 52%, 49% (régression).</span></p>
+    <p><b>Ce que l'agent produit :</b> un diagnostic par client, un message WhatsApp pour Julie (« On stagne sur la mobilité — je te propose qu'on attaque ça en priorité jeudi… »), une félicitation pour Karim, un message bienveillant pour Samia avec question sur sa fatigue, et le tableau récapitulatif.</p>
+
+    <h2>Les erreurs à éviter</h2>
+    <ul>
+      <li><b>Relancer tout le monde pareil :</b> le message générique tue la relation. Le diagnostic par critère est ce qui rend chaque message crédible.</li>
+      <li><b>Automatiser l'envoi sans relecture :</b> l'IA propose, vous décidez. Un plateau peut être voulu (semaine de récupération).</li>
+      <li><b>Négliger les NOUVEAU :</b> les 2 premières semaines décident de l'abandon ou de la fidélisation. Relancez-les systématiquement.</li>
+    </ul>
+
+    <div class="cta-box">
+      <h3>Module terminé ✅</h3>
+      <p>Vos courbes deviennent un système d'alerte précoce. Dernier module : la facturation qui se génère toute seule.</p>
+      <a class="btn accent" href="module-3.html">Module 3 — Facturation →</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink)">
+  <div class="wrap foot">
+    <div>© 2026 ScoreCoach — <a href="formation.html">Formation</a> · <a href="templates-agents/02-relance-client.md">Prompt en .md</a></div>
+    <div>Module 2/3 — Suivi clients intelligent</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

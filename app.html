@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScoreCoach — Application : évaluations & suivi des progrès</title>
+<meta name="description" content="ScoreCoach : saisissez vos grilles d'évaluation en 2 minutes sur mobile, suivez les progrès de vos clients et exportez un compte-rendu PDF professionnel. Zéro papier, zéro backend.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Score<span>Coach</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="formation.html">Formation IA</a>
+      <a href="blog/grille-evaluation-coach-sportif.html">Blog</a>
+      <a class="btn accent" href="tarifs.html">Passer Pro</a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-shell">
+  <div class="app-head">
+    <div>
+      <h1>Mon espace d'évaluation</h1>
+      <p class="sub">Saisie mobile-first · données stockées sur cet appareil (localStorage) · export PDF.</p>
+    </div>
+    <span class="trend flat" style="font-size:12.5px">Mode démo local — aucune donnée envoyée</span>
+  </div>
+
+  <div id="save-ok">✓ Séance enregistrée. Retrouvez-la dans l'onglet « Suivi des progrès ».</div>
+
+  <div class="app-tabs" role="tablist">
+    <button type="button" class="app-tab on" id="tab-eval" data-view="eval">✏️ Nouvelle évaluation</button>
+    <button type="button" class="app-tab" id="tab-dash" data-view="dash">📈 Suivi des progrès <span class="n" id="dash-count">0</span></button>
+  </div>
+
+  <div class="views">
+    <!-- ================= ÉVALUATION ================= -->
+    <div class="view on" id="view-eval">
+      <div class="eval-grid">
+        <div>
+          <div class="form-card">
+            <h2>👤 Client & séance</h2>
+            <div class="field">
+              <label for="f-client">Nom du client</label>
+              <input type="text" id="f-client" placeholder="Ex. : Julie Martin" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="f-date">Date de la séance</label>
+              <input type="date" id="f-date">
+            </div>
+            <div class="field">
+              <label>Grille d'évaluation (template par métier)</label>
+              <div class="tpl-pick" id="tpl-pick"></div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h2>📋 Grille de scores <span class="muted" style="font-size:13px;font-weight:400">— 1 à 5 par critère</span></h2>
+            <div class="rate-scale">
+              <span><b>1</b> À travailler</span><span><b>2</b> En progression</span>
+              <span><b>3</b> Correct</span><span><b>4</b> Bon</span><span><b>5</b> Excellent</span>
+            </div>
+            <div id="criteria-list"></div>
+            <div class="field" style="margin-top:16px">
+              <label for="f-global">Commentaire global de la séance (optionnel)</label>
+              <textarea id="f-global" rows="3" placeholder="Points clés, objectifs pour la prochaine séance…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <aside class="summary-card form-card" id="summary">
+          <h2>📊 Score de la séance</h2>
+          <div class="score-big" data-big>0/35</div>
+          <div class="score-sub" data-sub>0 % — 0/7 critères notés</div>
+          <div class="summary-bar"><div class="fill" data-fill style="width:0%"></div></div>
+          <div class="actions">
+            <button type="button" class="btn accent" id="btn-save">Enregistrer la séance</button>
+            <button type="button" class="btn warm" id="btn-pdf">Exporter PDF pro ⬇</button>
+            <button type="button" class="btn ghost" id="btn-print">Imprimer (fallback)</button>
+          </div>
+          <div class="mini-stat"><span>Critères notés</span><b data-mini-filled>0/7</b></div>
+          <div class="mini-stat"><span>Moyenne</span><b data-mini-avg>—</b></div>
+          <p style="font-size:12px;color:var(--muted);margin-top:12px">💡 Re-touchez une note pour l'annuler. Le PDF est généré sur votre appareil : aucune donnée ne quitte votre navigateur.</p>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div class="view" id="view-dash">
+      <div class="dash-cards">
+        <div class="dash-card"><div class="v" id="st-sessions">0</div><div class="l">Séances enregistrées</div></div>
+        <div class="dash-card"><div class="v" id="st-clients">0</div><div class="l">Clients suivis</div></div>
+        <div class="dash-card"><div class="v" id="st-avg">—</div><div class="l">Score moyen global</div></div>
+        <div class="dash-card"><div class="v flat" id="st-last">—</div><div class="l">Dernière séance</div></div>
+      </div>
+
+      <div class="client-pick" id="client-pick"></div>
+
+      <div class="chart-card">
+        <h2>📈 Évolution des scores — <span id="chart-client" style="color:var(--accent)"></span>
+          <span class="trend flat" id="trend">—</span>
+        </h2>
+        <div id="chart"></div>
+      </div>
+
+      <div class="chart-card">
+        <h2>🗂 Historique des séances</h2>
+        <table class="sessions">
+          <thead><tr><th>Date</th><th>Grille</th><th>Score</th><th>Actions</th></tr></thead>
+          <tbody id="sessions-tbl"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="modal" role="dialog" aria-modal="true"></div>
+<div id="print-area"></div>
+
+<footer style="background:var(--ink)">
+  <div class="wrap foot">
+    <div>© 2026 ScoreCoach — <a href="index.html">Accueil</a> · <a href="tarifs.html">Tarifs</a> · <a href="formation.html">Formation IA</a> · <a href="blog/grille-evaluation-coach-sportif.html">Blog</a></div>
+    <div>Fait pour les coachs, kinés et cliniques.</div>
+  </div>
+</footer>
+
+<script src="assets/js/templates.js"></script>
+<script src="assets/js/pdf.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
