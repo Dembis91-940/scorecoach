@@ -1,9 +1,10 @@
 // Service worker — ScoreCoach PWA (mise en cache simple)
-const CACHE = 'scorecoach-v1';
+const CACHE = 'scorecoach-v2';
 const ASSETS = ['./', './index.html', './app.html', './tarifs.html', './formation.html',
   './assets/css/style.css', './assets/js/app.js', './assets/js/main.js',
   './assets/js/templates.js', './assets/js/tarifs.js', './assets/js/pdf.js',
-  './manifest.json', './chatbot-config.js', './chatbot.js'];
+  './manifest.json', './chatbot-config.js', './chatbot.js',
+  './voice-config.js', './voice-widget.js', './assets/vapi-bundle.js'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
