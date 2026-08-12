@@ -57,7 +57,7 @@
       <!-- ============ SIMULATION ABONNEMENT ============ -->
       <div class="checkout-card" id="checkout">
         <span class="demo-badge">MODE DÉMO — aucune carte prélevée, Stripe à connecter pour la mise en production</span>
-        <h2 id="simulation">💳 Simuler mon abonnement</h2>
+        <h2 id="simulation">💳 S'abonner en 30 secondes</h2>
 
         <div class="billing-toggle">
           <button type="button" class="bill-btn on" data-bill="monthly">Mensuel</button>
@@ -82,28 +82,27 @@
           <div class="checkout-row"><span>Première facture</span><b id="chk-first">Première facture : 27 €</b></div>
 
           <div class="stripe-placeholder">
-            <b>🔒 Paiement sécurisé — placeholder Stripe</b><br>
-            En production : carte bancaire via <b>Stripe Checkout</b> (CB, Apple Pay, Google Pay), prélèvement automatique mensuel, facture PDF envoyée par email.<br>
-            <span style="color:var(--muted)">Champs carte désactivés en mode démo — aucune donnée bancaire n'est demandée ni stockée.</span>
+            <b>🔒 Paiement sécurisé par Stripe</b><br>
+            Carte bancaire via Stripe Checkout (CB, Apple Pay, Google Pay), prélèvement mensuel, facture PDF par email. Annulation en 1 clic.
           </div>
 
-          <button type="submit" class="btn accent" style="width:100%">Valider mon abonnement (démo) →</button>
+          <button type="submit" class="btn accent" style="width:100%">S'abonner avec Stripe →</button>
           <p class="form-note">14 jours d'essai gratuit inclus. Sans engagement : <b>annulation en 1 clic</b> depuis votre espace, vous gardez l'accès jusqu'à la fin de la période payée.</p>
         </form>
       </div>
 
       <!-- ============ CONFIRMATION ============ -->
       <div class="checkout-card" id="confirmation" style="display:none">
-        <span class="demo-badge">MODE DÉMO — abonnement simulé, non facturé</span>
-        <h2>✓ Abonnement activé (démo)</h2>
+        
+        <h2>✓ Abonnement confirmé</h2>
         <div class="checkout-row"><span>Formule</span><b id="cf-plan">Pro</b></div>
         <div class="checkout-row"><span>Tarif</span><b id="cf-price">27 €/mois</b></div>
         <div class="checkout-row"><span>Email</span><b id="cf-mail">—</b></div>
         <p style="font-size:14px;color:var(--muted);margin:16px 0">
-          En production, vous recevriez un email de confirmation + votre facture. L'accès à l'application se débloque immédiatement.
+          Vous recevez un email de confirmation + votre facture PDF. L'accès à l'application est immédiat.
         </p>
         <a class="btn accent" style="width:100%;margin-bottom:10px" href="app.html">Ouvrir l'application →</a>
-        <button type="button" class="btn ghost" id="btn-cancel" style="width:100%">Résilier (démo — 1 clic, comme en vrai)</button>
+        <button type="button" class="btn ghost" id="btn-cancel" style="width:100%">Résilier en 1 clic</button>
         <p class="form-note" style="text-align:center">Transparence : pas de période d'engagement, pas de frais cachés, vos données exportables à tout moment.</p>
       </div>
     </div>

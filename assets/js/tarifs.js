@@ -97,20 +97,18 @@
     });
 
     var form = $("#sub-form");
+    // ⚡ LIENS DE PAIEMENT STRIPE — remplacés dès que le compte Stripe est créé (2 min)
+    var STRIPE_URLS = {
+      decouverte: 'https://buy.stripe.com/REMPLACER_DECOUVERTE',
+      pro: 'https://buy.stripe.com/REMPLACER_PRO',
+      clinique: 'https://buy.stripe.com/REMPLACER_CLINIQUE'
+    };
     if (form) form.addEventListener("submit", function (e) {
       e.preventDefault();
       var email = $("#sub-email") ? $("#sub-email").value.trim() : "";
-      var sub = {
-        plan: state.plan,
-        planName: globalThis.SC_TARIFS.PLANS[state.plan].name,
-        price: globalThis.SC_TARIFS.priceOf(state.plan, state.annual),
-        billing: state.annual ? "annual" : "monthly",
-        email: email,
-        status: "active",
-        start: new Date().toISOString()
-      };
-      globalThis.SC_TARIFS.saveSub(sub);
-      renderConfirmation(sub);
+      if (!email || email.indexOf("@") === -1) { alert("Indiquez votre email de facturation."); return; }
+      var url = STRIPE_URLS[state.plan] || STRIPE_URLS.decouverte;
+      window.location.href = url + (url.indexOf("?") === -1 ? "?" : "&") + "prefilled_email=" + encodeURIComponent(email);
     });
 
     /* bouton résilier (démo) */
