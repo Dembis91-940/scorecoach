@@ -1,5 +1,5 @@
 // Service worker — ScoreCoach PWA (mise en cache simple)
-const CACHE = 'scorecoach-v2';
+const CACHE = 'scorecoach-v3';
 const ASSETS = ['./', './index.html', './app.html', './tarifs.html', './formation.html',
   './assets/css/style.css', './assets/js/app.js', './assets/js/main.js',
   './assets/js/templates.js', './assets/js/tarifs.js', './assets/js/pdf.js',
