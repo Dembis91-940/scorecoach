@@ -97,13 +97,36 @@
     if (!form) return;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var email = $("#cta-email").value.trim();
-      if (!email) return;
+      var email = $("input[type=email]#cta-email") ? $("#cta-email").value.trim() : "";
+      if (!email || email.indexOf("@") === -1) return;
       try {
         var list = JSON.parse(localStorage.getItem("scorecoach_leads") || "[]");
         list.push({ email: email, date: new Date().toISOString() });
         localStorage.setItem("scorecoach_leads", JSON.stringify(list));
       } catch (err) { /* quota */ }
+      /* Envoi EmailJS (config partagée avec le chatbot) */
+      var cfg = (globalThis.CHATBOT_CONFIG && globalThis.CHATBOT_CONFIG.emailjs) || null;
+      if (cfg) {
+        var loadEj = function (cb) {
+          if (globalThis.emailjs) { cb(); return; }
+          var s = document.createElement("script");
+          s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+          s.onload = function () { try { emailjs.init({ publicKey: cfg.publicKey }); } catch (err) {} cb(); };
+          s.onerror = function () { cb(); };
+          document.head.appendChild(s);
+        };
+        loadEj(function () {
+          if (!globalThis.emailjs) return;
+          try {
+            emailjs.send(cfg.serviceId, cfg.templateId, {
+              site: "ScoreCoach",
+              name: "—",
+              email: email,
+              question: "Essai gratuit 14 jours demandé (formulaire accueil). Confirmation et accès à envoyer."
+            }).catch(function () {});
+          } catch (err) {}
+        });
+      }
       var ok = $("#cta-ok");
       if (ok) ok.classList.add("show");
       form.style.display = "none";
@@ -139,14 +162,34 @@
     document.body.removeChild(ta);
   }
 
+  /* ---------- Animation au scroll (reveal) ---------- */
+  function initReveal() {
+    var els = document.querySelectorAll(".reveal");
+    if (!els.length) return;
+    if (!("IntersectionObserver" in window)) {
+      for (var i = 0; i < els.length; i++) els[i].classList.add("visible");
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      for (var j = 0; j < entries.length; j++) {
+        if (entries[j].isIntersecting) {
+          entries[j].target.classList.add("visible");
+          io.unobserve(entries[j].target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    for (var k = 0; k < els.length; k++) io.observe(els[k]);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderDemo();
-    var sel = $("#demo-template");
+    var sel = $("select#demo-template");
     if (sel) sel.addEventListener("change", function () { demo.scores = {}; renderDemo(); updateDemoScore(); });
     updateDemoScore();
     initCountdown();
     initCtaForm();
     initCopyButtons();
+    initReveal();
   });
 
   globalThis.SC_LANDING = { renderDemo: renderDemo, updateDemoScore: updateDemoScore, initCountdown: initCountdown, initCtaForm: initCtaForm };
