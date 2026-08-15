@@ -56,8 +56,8 @@
 
       <!-- ============ SIMULATION ABONNEMENT ============ -->
       <div class="checkout-card" id="checkout">
-        <span class="demo-badge">MODE DÉMO — aucune carte prélevée, Stripe à connecter pour la mise en production</span>
-        <h2 id="simulation">💳 S'abonner en 30 secondes</h2>
+        <span class="demo-badge">COMMANDE CONFIRMÉE PAR EMAIL — paiement par virement ou message privé, sans carte bancaire</span>
+        <h2 id="simulation">📋 Commander en 30 secondes</h2>
 
         <div class="billing-toggle">
           <button type="button" class="bill-btn on" data-bill="monthly">Mensuel</button>
@@ -71,6 +71,10 @@
 
         <form id="sub-form">
           <div class="field">
+            <label for="sub-nom">Votre nom</label>
+            <input type="text" id="sub-nom" placeholder="Ex. : Claire Fontaine" required>
+          </div>
+          <div class="field">
             <label for="sub-email">Email de facturation</label>
             <input type="email" id="sub-email" placeholder="vous@cabinet.fr" required>
           </div>
@@ -82,11 +86,13 @@
           <div class="checkout-row"><span>Première facture</span><b id="chk-first">Première facture : 27 €</b></div>
 
           <div class="stripe-placeholder">
-            <b>🔒 Paiement sécurisé par Stripe</b><br>
-            Carte bancaire via Stripe Checkout (CB, Apple Pay, Google Pay), prélèvement mensuel, facture PDF par email. Annulation en 1 clic.
+            <b>🔒 Confirmation par email</b><br>
+            Paiement par virement ou message privé — votre accès est activé dès réception du paiement. Facture PDF envoyée par email.
           </div>
 
-          <button type="submit" class="btn accent" style="width:100%">S'abonner avec Stripe →</button>
+          <div id="sub-err" style="display:none;color:#dc2626;font-size:13.5px;margin:10px 0"></div>
+
+          <button type="submit" class="btn accent" style="width:100%">Commander →</button>
           <p class="form-note">14 jours d'essai gratuit inclus. Sans engagement : <b>annulation en 1 clic</b> depuis votre espace, vous gardez l'accès jusqu'à la fin de la période payée.</p>
         </form>
       </div>
@@ -94,12 +100,12 @@
       <!-- ============ CONFIRMATION ============ -->
       <div class="checkout-card" id="confirmation" style="display:none">
         
-        <h2>✓ Abonnement confirmé</h2>
+        <h2>✓ Commande envoyée</h2>
         <div class="checkout-row"><span>Formule</span><b id="cf-plan">Pro</b></div>
         <div class="checkout-row"><span>Tarif</span><b id="cf-price">27 €/mois</b></div>
         <div class="checkout-row"><span>Email</span><b id="cf-mail">—</b></div>
         <p style="font-size:14px;color:var(--muted);margin:16px 0">
-          Vous recevez un email de confirmation + votre facture PDF. L'accès à l'application est immédiat.
+          Vous recevez une confirmation par email avec les coordonnées de paiement (virement ou message privé). Votre accès est activé dès réception du paiement.
         </p>
         <a class="btn accent" style="width:100%;margin-bottom:10px" href="app.html">Ouvrir l'application →</a>
         <button type="button" class="btn ghost" id="btn-cancel" style="width:100%">Résilier en 1 clic</button>
@@ -119,7 +125,7 @@
 <footer style="background:var(--ink)">
   <div class="wrap foot">
     <div>© 2026 ScoreCoach — <a href="index.html">Accueil</a> · <a href="app.html">Application</a> · <a href="formation.html">Formation IA</a></div>
-    <div>Paiement : Stripe (placeholder en démo) · Hébergement : statique</div>
+    <div>Paiement : confirmation par email, virement ou message privé · Hébergement : statique</div>
   </div>
 </footer>
 

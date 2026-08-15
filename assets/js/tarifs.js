@@ -1,11 +1,33 @@
 /* ============================================================
-   ScoreCoach — Tarifs : simulation d'abonnement complète.
+   ScoreCoach — Tarifs : commande par email (EmailJS).
    Logique pure exposée (testable) + rendu DOM navigateur.
-   Stripe = placeholder clair (mode démo), annulation 1 clic
-   réellement implémentée en démo.
+   Commande réelle via EmailJS : confirmation par email,
+   paiement par virement ou message privé (aucun simulateur).
    ============================================================ */
 (function () {
   "use strict";
+
+  var EMAILJS = {
+    serviceId: "service_cy1ytdb",
+    templateId: "template_xpo58cv",
+    publicKey: "8Pui4ZEqxW2jRVF7h"
+  };
+  function emailJsConfig() {
+    var c = (window.CHATBOT_CONFIG && window.CHATBOT_CONFIG.emailjs) || {};
+    return {
+      serviceId: c.serviceId || EMAILJS.serviceId,
+      templateId: c.templateId || EMAILJS.templateId,
+      publicKey: c.publicKey || EMAILJS.publicKey
+    };
+  }
+  function chargerEmailJS(callback) {
+    if (window.emailjs) { callback(); return; }
+    var s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+    s.onload = function () { try { emailjs.init({ publicKey: emailJsConfig().publicKey }); } catch (e) {} callback(); };
+    s.onerror = function () { callback(); };
+    document.head.appendChild(s);
+  }
 
   var PLANS = {
     decouverte: { name: "Découverte", monthly: 19, features: "1 grille au choix" },
@@ -97,18 +119,49 @@
     });
 
     var form = $("#sub-form");
-    // ⚡ LIENS DE PAIEMENT STRIPE — remplacés dès que le compte Stripe est créé (2 min)
-    var STRIPE_URLS = {
-      decouverte: 'https://buy.stripe.com/REMPLACER_DECOUVERTE',
-      pro: 'https://buy.stripe.com/REMPLACER_PRO',
-      clinique: 'https://buy.stripe.com/REMPLACER_CLINIQUE'
-    };
     if (form) form.addEventListener("submit", function (e) {
       e.preventDefault();
+      var nom = $("#sub-nom") ? $("#sub-nom").value.trim() : "";
       var email = $("#sub-email") ? $("#sub-email").value.trim() : "";
-      if (!email || email.indexOf("@") === -1) { alert("Indiquez votre email de facturation."); return; }
-      var url = STRIPE_URLS[state.plan] || STRIPE_URLS.decouverte;
-      window.location.href = url + (url.indexOf("?") === -1 ? "?" : "&") + "prefilled_email=" + encodeURIComponent(email);
+      var errEl = $("#sub-err");
+      if (errEl) { errEl.style.display = "none"; errEl.textContent = ""; }
+      if (nom.length < 2) { if (errEl) { errEl.textContent = "Indiquez votre nom (2 caractères minimum)."; errEl.style.display = "block"; } return; }
+      if (!email || email.indexOf("@") === -1) { if (errEl) { errEl.textContent = "Indiquez votre email de facturation."; errEl.style.display = "block"; } return; }
+
+      var btn = form.querySelector("button[type=submit]");
+      var price = globalThis.SC_TARIFS.priceOf(state.plan, state.annual);
+      var total = globalThis.SC_TARIFS.totalOf(state.plan, state.annual);
+      var p = globalThis.SC_TARIFS.PLANS[state.plan];
+      var question = "Commande ScoreCoach : " + p.name + " (" + p.features + ") — " + price +
+        " €/mois, facturation " + (state.annual ? "annuelle (" + total + " €/an)" : "mensuelle") +
+        ". 14 jours d'essai gratuit inclus. Confirmation et coordonnées de paiement à envoyer.";
+      if (btn) { btn.disabled = true; btn.textContent = "Envoi en cours…"; }
+
+      chargerEmailJS(function () {
+        if (!window.emailjs) {
+          if (btn) { btn.disabled = false; btn.textContent = "Commander →"; }
+          if (errEl) { errEl.textContent = "Le service d'envoi est momentanément indisponible. Réessayez dans quelques instants."; errEl.style.display = "block"; }
+          return;
+        }
+        var cfg = emailJsConfig();
+        emailjs.send(cfg.serviceId, cfg.templateId, { site: "ScoreCoach", name: nom, email: email, question: question })
+          .then(function () {
+            var sub = globalThis.SC_TARIFS.saveSub({
+              plan: state.plan,
+              planName: p.name,
+              price: price,
+              billing: state.annual ? "annual" : "monthly",
+              email: email,
+              status: "active",
+              depuis: new Date().toISOString(),
+              paiement: "commande-emailjs"
+            });
+            renderConfirmation(sub);
+          }, function () {
+            if (btn) { btn.disabled = false; btn.textContent = "Commander →"; }
+            if (errEl) { errEl.textContent = "L'envoi a échoué. Vérifiez votre connexion puis réessayez, ou écrivez-nous à agentiadeploiement@gmail.com."; errEl.style.display = "block"; }
+          });
+      });
     });
 
     /* bouton résilier (démo) */
@@ -135,7 +188,7 @@
     var setTxt = function (sel, txt) { var el = $(sel); if (el) el.textContent = txt; };
     setTxt("#cf-plan", sub.planName);
     setTxt("#cf-price", sub.price + " €/mois" + (sub.billing === "annual" ? " (facturation annuelle)" : ""));
-    setTxt("#cf-mail", sub.email || "email non renseigné (mode démo)");
+    setTxt("#cf-mail", sub.email || "email non renseigné");
   }
 
   if (typeof document !== "undefined") {
